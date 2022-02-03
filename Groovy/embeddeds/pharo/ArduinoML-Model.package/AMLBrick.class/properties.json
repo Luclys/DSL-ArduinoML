@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "AMLEntity",
+	"category" : "ArduinoML-Model",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"pin"
+	],
+	"name" : "AMLBrick",
+	"type" : "normal"
+}

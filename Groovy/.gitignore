@@ -1,0 +1,7 @@
+embeddeds/haskell/dist
+
+# Python
+*.py[cod]
+
+
+
