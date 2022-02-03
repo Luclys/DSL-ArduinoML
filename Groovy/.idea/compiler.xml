@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="dsl-scala" />
+        <module name="dsl-groovy" />
+        <module name="external-antlr" />
+        <module name="dsl-java" />
+        <module name="kernel-jvm" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="dsl-groovy" target="1.8" />
+      <module name="dsl-java" target="1.8" />
+      <module name="dsl-scala" target="1.8" />
+      <module name="external-antlr" target="1.8" />
+      <module name="kernel-jvm" target="1.8" />
+      <module name="root" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/embeddeds/groovy/GroovuinoML/dsl-groovy.iml" filepath="$PROJECT_DIR$/embeddeds/groovy/GroovuinoML/dsl-groovy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/embeddeds/java/dsl-java.iml" filepath="$PROJECT_DIR$/embeddeds/java/dsl-java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/embeddeds/scala/dsl-scala.iml" filepath="$PROJECT_DIR$/embeddeds/scala/dsl-scala.iml" />
+      <module fileurl="file://$PROJECT_DIR$/externals/antlr/external-antlr.iml" filepath="$PROJECT_DIR$/externals/antlr/external-antlr.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kernels/jvm/kernel-jvm.iml" filepath="$PROJECT_DIR$/kernels/jvm/kernel-jvm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/root.iml" filepath="$PROJECT_DIR$/root.iml" />
+    </modules>
+  </component>
+</project>
