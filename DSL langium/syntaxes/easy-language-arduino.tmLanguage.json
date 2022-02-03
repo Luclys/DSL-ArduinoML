@@ -1,0 +1,51 @@
+{
+  "name": "easy-language-arduino",
+  "scopeName": "source.easy-language-arduino",
+  "fileTypes": [
+    ".ela"
+  ],
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "name": "keyword.control.easy-language-arduino",
+      "match": "\\b(AND|Application|Bricks|goto|if|initial|Input|is|OFF|ON|OR|Output|PIN(|state|States)\\b"
+    },
+    {
+      "name": "keyword.symbol.easy-language-arduino",
+      "match": "(\\-|\\:|\\(|\\)|\\{|\\}|\\=|\\PIN()"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.block.easy-language-arduino",
+          "begin": "/\\*",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.easy-language-arduino"
+            }
+          },
+          "end": "\\*/",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.easy-language-arduino"
+            }
+          }
+        },
+        {
+          "begin": "//",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.whitespace.comment.leading.easy-language-arduino"
+            }
+          },
+          "end": "(?=$)",
+          "name": "comment.line.easy-language-arduino"
+        }
+      ]
+    }
+  }
+}

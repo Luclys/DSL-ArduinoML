@@ -1,0 +1,9 @@
+{
+    "languageId": "easy-language-arduino",
+    "grammar": "src/language-server/easy-language-arduino.langium",
+    "fileExtensions": [".ela"],
+    "out": "src/language-server/generated",
+    "textMate": {
+        "out": "syntaxes/easy-language-arduino.tmLanguage.json"
+    }
+}

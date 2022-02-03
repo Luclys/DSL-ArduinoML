@@ -1,0 +1,23 @@
+Application MultiStateAlarm initial state stall {
+	Bricks:
+		- Input button = PIN(9)
+		- Output led = PIN(12)
+		- Output buzzer = PIN(11)
+
+	
+	States:
+		stall: {
+			led OFF
+			buzzer OFF
+			if (button is ON) goto state buzzOn
+		}
+		buzzOn: {
+			buzzer ON
+			if (button is ON) goto state buzzOff_ledOn
+		}
+		buzzOff_ledOn: {
+			buzzer OFF
+			led ON
+			if (button is ON) goto state stall
+		}
+}

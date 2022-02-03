@@ -1,0 +1,18 @@
+Application SimpleAlarm initial state a {
+	Bricks:
+		- Input button = PIN(9)
+		- Output led = PIN(12)
+		- Output buzzer = PIN(10)
+	
+	States:
+		a: {
+			led OFF
+			buzzer OFF
+			if (button is ON) goto state b
+		}
+		b: {
+			led ON
+			buzzer ON
+			if (button is OFF) goto state a
+		}
+}

@@ -1,0 +1,19 @@
+Application DualCheckAlarm initial state a {
+	Bricks:
+		- Input button1 = PIN(9)
+		- Input button2 = PIN(10)
+		- Output led = PIN(12)
+		- Output buzzer = PIN(11)
+	
+	States:
+		a: {
+			led OFF
+			buzzer OFF
+			if (button1 is ON AND button2 is ON) goto state b
+		}
+		b: {
+			led ON
+			buzzer ON
+			if (button1 is OFF OR button2 is OFF) goto state a
+		}
+}

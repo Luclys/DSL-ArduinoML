@@ -1,0 +1,15 @@
+Application StateBasedAlarm initial state a {
+	Bricks:
+		- Input button = PIN(9)
+		- Output led = PIN(12)
+	
+	States:
+		a: {
+			led OFF
+			if (button is ON) goto state b
+		}
+		b: {
+			led ON
+			if (button is ON) goto state a
+		}
+}
