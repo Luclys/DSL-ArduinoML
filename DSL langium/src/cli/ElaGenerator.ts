@@ -42,7 +42,9 @@ void loop() {
     generateState(state: State): string {
         return `
         case ${state.name}:
-            ${state.Actions.map(action => this.generateAction(action)).join(`;${NL.lineDelimiter}`)};
+            ${state.Actions !== null
+                ? state.Actions.map(action => this.generateAction(action)).join(`;${NL.lineDelimiter}`)
+                : ''};
             ${state.Transitions !== null
                 ? state.Transitions.map(transition => this.generateTransition(transition)).join(NL.lineDelimiter)
                 : ''}

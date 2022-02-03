@@ -21,7 +21,7 @@ Actuator:
 State:
     name=ID ':' '{'
         'actions' ':'
-		(Actions+=Action)+
+		(Actions+=Action)*
         'transitions' ':'
 		(Transitions+=Transition)+
     '}';

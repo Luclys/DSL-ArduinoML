@@ -1,6 +1,6 @@
 Application AnalogBrick initial state low {
 	Bricks:
-		- Input button = PIN(1)
+		- Input button = PIN(10)
 		- Output led = PIN(12)
 		- Output buzzer = PIN(11)
 	
