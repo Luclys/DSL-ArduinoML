@@ -10,11 +10,11 @@
     },
     {
       "name": "keyword.control.easy-language-arduino",
-      "match": "\\b(AND|Application|Bricks|goto|if|initial|Input|is|OFF|ON|OR|Output|PIN(|state|States)\\b"
+      "match": "\\b(actions|AND|Application|Bricks|goto|if|initial|Input|is|OFF|ON|OR|Output|PIN(|state|States|transitions)\\b"
     },
     {
       "name": "keyword.symbol.easy-language-arduino",
-      "match": "(\\-|\\:|\\(|\\)|\\{|\\}|\\=|\\PIN()"
+      "match": "(\\-|\\:|\\!=|\\(|\\)|\\{|\\}|\\<|\\<=|\\=|\\==|\\>|\\>=|\\PIN()"
     }
   ],
   "repository": {

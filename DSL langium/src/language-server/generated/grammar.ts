@@ -317,16 +317,12 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             "value": "{"
           },
           {
-            "$type": "Assignment",
-            "feature": "Actions",
-            "operator": "+=",
-            "terminal": {
-              "$type": "RuleCall",
-              "arguments": [],
-              "rule": {
-                "$refText": "Action"
-              }
-            }
+            "$type": "Keyword",
+            "value": "actions"
+          },
+          {
+            "$type": "Keyword",
+            "value": ":"
           },
           {
             "$type": "Assignment",
@@ -340,23 +336,19 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
               }
             },
             "elements": [],
-            "cardinality": "*"
+            "cardinality": "+"
+          },
+          {
+            "$type": "Keyword",
+            "value": "transitions"
+          },
+          {
+            "$type": "Keyword",
+            "value": ":"
           },
           {
             "$type": "Assignment",
-            "feature": "Transition",
-            "operator": "=",
-            "terminal": {
-              "$type": "RuleCall",
-              "arguments": [],
-              "rule": {
-                "$refText": "Transition"
-              }
-            }
-          },
-          {
-            "$type": "Assignment",
-            "feature": "Transition",
+            "feature": "Transitions",
             "operator": "+=",
             "terminal": {
               "$type": "RuleCall",
@@ -366,7 +358,7 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
               }
             },
             "elements": [],
-            "cardinality": "*"
+            "cardinality": "+"
           },
           {
             "$type": "Keyword",
@@ -384,6 +376,11 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
         "$type": "Group",
         "elements": [
           {
+            "$type": "Keyword",
+            "value": "-",
+            "elements": []
+          },
+          {
             "$type": "Assignment",
             "feature": "name",
             "operator": "=",
@@ -393,8 +390,7 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
               "rule": {
                 "$refText": "ID"
               }
-            },
-            "elements": []
+            }
           },
           {
             "$type": "Assignment",
@@ -421,8 +417,12 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
         "elements": [
           {
             "$type": "Keyword",
-            "value": "if",
+            "value": "-",
             "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "if"
           },
           {
             "$type": "Keyword",
@@ -528,6 +528,33 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
       "name": "Condition",
       "hiddenTokens": [],
       "alternatives": {
+        "$type": "Alternatives",
+        "elements": [
+          {
+            "$type": "RuleCall",
+            "arguments": [],
+            "rule": {
+              "$refText": "AnalogCondition"
+            },
+            "elements": []
+          },
+          {
+            "$type": "RuleCall",
+            "arguments": [],
+            "rule": {
+              "$refText": "DigitalCondition"
+            },
+            "elements": []
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
+      "name": "DigitalCondition",
+      "hiddenTokens": [],
+      "alternatives": {
         "$type": "Group",
         "elements": [
           {
@@ -556,6 +583,54 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
               "arguments": [],
               "rule": {
                 "$refText": "Value"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
+      "name": "AnalogCondition",
+      "hiddenTokens": [],
+      "alternatives": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Assignment",
+            "feature": "sensor",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "arguments": [],
+              "rule": {
+                "$refText": "ID"
+              }
+            },
+            "elements": []
+          },
+          {
+            "$type": "Assignment",
+            "feature": "analogOp",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "arguments": [],
+              "rule": {
+                "$refText": "AnalogOperator"
+              }
+            }
+          },
+          {
+            "$type": "Assignment",
+            "feature": "value",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "arguments": [],
+              "rule": {
+                "$refText": "INT"
               }
             }
           }
@@ -601,6 +676,48 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
           {
             "$type": "Keyword",
             "value": "AND",
+            "elements": []
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
+      "name": "AnalogOperator",
+      "hiddenTokens": [],
+      "type": "string",
+      "alternatives": {
+        "$type": "Alternatives",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "<",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "<=",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "==",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "!=",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": ">=",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": ">",
             "elements": []
           }
         ]

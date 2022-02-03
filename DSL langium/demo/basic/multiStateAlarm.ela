@@ -7,17 +7,26 @@ Application MultiStateAlarm initial state stall {
 	
 	States:
 		stall: {
-			led OFF
-			buzzer OFF
-			if (button is ON) goto state buzzOn
+			actions:
+				- led OFF
+				- buzzer OFF
+
+			transitions:
+				- if (button is ON) goto state buzzOn
 		}
 		buzzOn: {
-			buzzer ON
-			if (button is ON) goto state buzzOff_ledOn
+			actions:
+				- buzzer ON
+
+			transitions:
+				- if (button is ON) goto state buzzOff_ledOn
 		}
 		buzzOff_ledOn: {
-			buzzer OFF
-			led ON
-			if (button is ON) goto state stall
+			actions:
+				- buzzer OFF
+				- led ON
+
+			transitions:
+				- if (button is ON) goto state stall
 		}
 }

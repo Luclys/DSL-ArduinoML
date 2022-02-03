@@ -47,7 +47,6 @@ export function isBrick(item: unknown): item is Brick {
 export interface Condition extends AstNode {
     readonly $container: Conditions;
     sensor: string
-    value: Value
 }
 
 export const Condition = 'Condition';
@@ -73,7 +72,7 @@ export interface State extends AstNode {
     readonly $container: App;
     Actions: Array<Action>
     name: string
-    Transition: Transition
+    Transitions: Array<Transition>
 }
 
 export const State = 'State';
@@ -112,18 +111,41 @@ export function isSensor(item: unknown): item is Sensor {
     return reflection.isInstance(item, Sensor);
 }
 
+export interface AnalogCondition extends Condition {
+    analogOp: AnalogOperator
+    value: number
+}
+
+export const AnalogCondition = 'AnalogCondition';
+
+export function isAnalogCondition(item: unknown): item is AnalogCondition {
+    return reflection.isInstance(item, AnalogCondition);
+}
+
+export interface DigitalCondition extends Condition {
+    value: Value
+}
+
+export const DigitalCondition = 'DigitalCondition';
+
+export function isDigitalCondition(item: unknown): item is DigitalCondition {
+    return reflection.isInstance(item, DigitalCondition);
+}
+
 export type Value = 'ON' | 'OFF'
 
 export type Operator = 'OR' | 'AND'
 
-export type EasyLanguageArduinoAstType = 'Action' | 'App' | 'Brick' | 'Condition' | 'Conditions' | 'State' | 'Transition' | 'Actuator' | 'Sensor';
+export type AnalogOperator = '<' | '<=' | '==' | '!=' | '>=' | '>'
+
+export type EasyLanguageArduinoAstType = 'Action' | 'App' | 'Brick' | 'Condition' | 'Conditions' | 'State' | 'Transition' | 'Actuator' | 'Sensor' | 'AnalogCondition' | 'DigitalCondition';
 
 export type EasyLanguageArduinoAstReference = never;
 
 export class EasyLanguageArduinoAstReflection implements AstReflection {
 
     getAllTypes(): string[] {
-        return ['Action', 'App', 'Brick', 'Condition', 'Conditions', 'State', 'Transition', 'Actuator', 'Sensor'];
+        return ['Action', 'App', 'Brick', 'Condition', 'Conditions', 'State', 'Transition', 'Actuator', 'Sensor', 'AnalogCondition', 'DigitalCondition'];
     }
 
     isInstance(node: unknown, type: string): boolean {
@@ -138,6 +160,10 @@ export class EasyLanguageArduinoAstReflection implements AstReflection {
             case Actuator:
             case Sensor: {
                 return this.isSubtype(Brick, supertype);
+            }
+            case AnalogCondition:
+            case DigitalCondition: {
+                return this.isSubtype(Condition, supertype);
             }
             default: {
                 return false;

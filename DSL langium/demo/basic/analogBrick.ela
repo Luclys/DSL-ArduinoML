@@ -1,0 +1,33 @@
+Application AnalogBrick initial state low {
+	Bricks:
+		- Input button = PIN(1)
+		- Output led = PIN(12)
+		- Output buzzer = PIN(11)
+	
+	States:
+		low: {
+			actions:
+				- led OFF
+				- buzzer OFF
+			
+			transitions:
+				- if (button >= 512) goto state middle
+		}
+		middle: {
+			actions:
+				- led ON
+				- buzzer ON
+			
+			transitions:
+				- if (button < 512) goto state low
+				- if (button >= 800) goto state high
+		}
+		high: {
+			actions:
+				- led ON
+				- buzzer OFF
+			
+			transitions:
+				- if (button < 800) goto state middle
+		}
+}

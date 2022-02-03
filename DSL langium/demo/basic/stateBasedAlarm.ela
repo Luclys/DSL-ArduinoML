@@ -5,11 +5,17 @@ Application StateBasedAlarm initial state a {
 	
 	States:
 		a: {
-			led OFF
-			if (button is ON) goto state b
+			actions:
+				- led OFF
+			
+			transitions:
+				- if (button is ON) goto state b
 		}
 		b: {
-			led ON
-			if (button is ON) goto state a
+			actions:
+				- led ON
+			
+			transitions:
+				- if (button is ON) goto state a
 		}
 }

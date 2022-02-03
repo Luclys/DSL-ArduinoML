@@ -1,0 +1,27 @@
+Application SandBox initial state a {	
+	Bricks:
+		- Input button1 = PIN(9)
+		- Input button2 = PIN(10)
+		- Output led = PIN(12)
+		- Output buzzer = PIN(11)
+	
+	States:
+	a: {
+		actions :
+			- led OFF
+			- buzzer OFF
+
+		transitions :
+			- if (button1 is ON AND button2 is ON) goto state b
+	}
+	b: {
+		actions :
+			- led ON
+			- buzzer ON	
+			
+		transitions:
+			- if (button1 is OFF OR button2 is OFF) goto state a
+			- if (button2 <= 300) ... // 300 = 57° en valeur analogique
+			- if (button3 == )
+	}
+}

@@ -13,33 +13,40 @@ Brick:
     '-' (Sensor | Actuator);
 
 Sensor:
-    'Input' name=ID '=' 'PIN(' pin=INT ')';
+    'Input' name=ID '=' 'PIN('pin=INT')';
 
 Actuator:
-    'Output' name=ID '=' 'PIN(' pin=INT ')';
+    'Output' name=ID '=' 'PIN('pin=INT')';
 
 State:
     name=ID ':' '{'
-		Actions+=Action
-		(Actions+=Action)*
-		Transition=Transition
-		(Transition+=Transition)*
+        'actions' ':'
+		(Actions+=Action)+
+        'transitions' ':'
+		(Transitions+=Transition)+
     '}';
 
 Action:
-    name=ID value=Value;
+    '-' name=ID value=Value;
 
 Transition:
-    'if' '(' conditions=Conditions ')' 'goto' 'state' goto=ID;
+    '-' 'if' '(' conditions=Conditions ')' 'goto' 'state' goto=ID;
 
 Conditions:
     leftCondition=Condition (operator=Operator rightConditions=Conditions)?;
 
 Condition:
+    (AnalogCondition|DigitalCondition);
+
+DigitalCondition:
     sensor=ID 'is' value=Value;
+
+AnalogCondition:
+    sensor=ID analogOp=AnalogOperator value=INT;
 
 Value returns string: 'ON' | 'OFF';
 Operator returns string: 'OR' | 'AND';
+AnalogOperator returns string: '<' | '<=' | '==' | '!=' | '>=' | '>';
 
 terminal WS: /\s+/;
 terminal ID: /[_a-zA-Z][\w_]*/;

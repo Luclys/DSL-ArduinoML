@@ -1,23 +1,23 @@
 import { NL } from "langium";
-import { Action, App, Brick, Condition, Conditions, isActuator, isSensor, Operator, State, Transition, Value } from "../language-server/generated/ast";
+import { Action, AnalogCondition, App, Brick, Condition, Conditions, DigitalCondition, isActuator, isAnalogCondition, isDigitalCondition, isSensor, Operator, State, Transition, Value } from "../language-server/generated/ast";
 
 export class ElaGenerator {
+
     compile(app: App): string {
-        return `
-//Wiring code generated from an ArduinoML model
+        return `//Wiring code generated from an ArduinoML model
 // Application name: ${app.name}
 
 enum State {${app.States.map(state => state.name).join(', ')}};
 ${app.initial != null ? `State currentState = ${app.initial};` : ''}
 ${app.Bricks.map(brick => this.declareBrick(brick)).join('')}
 
-void setup(){
-    ${app.Bricks.map(brick => this.generateBrick(brick)).join(NL.lineDelimiter)}
+void setup() {
+${app.Bricks.map(brick => this.generateBrick(brick)).join(NL.lineDelimiter)}
     Serial.begin(9600);
 }
 
 void loop() {
-    switch(currentState){
+    switch(currentState) {
         ${app.States.map(state => this.generateState(state)).join('')}
     }
 }
@@ -25,7 +25,7 @@ void loop() {
     }
 
     declareBrick(brick: Brick): string {
-        return `const int ${brick.name} = ${brick.pin};\n`
+        return `const int ${brick.name} = ${brick.pin};${NL.lineDelimiter}`
     }
 
     generateBrick(brick: Brick): string {
@@ -36,15 +36,17 @@ void loop() {
             io = "OUTPUT";
         }
 
-        return `pinMode(${brick.name}, ${io});`
+        return `    pinMode(${brick.name}, ${io});`
     }
 
     generateState(state: State): string {
         return `
-            case ${state.name}:
-                    ${state.Actions.map(action => this.generateAction(action)).join(';')};
-                    ${state.Transition !== null ? (this.generateTransition(state.Transition)) : ''};
-                    break;
+        case ${state.name}:
+            ${state.Actions.map(action => this.generateAction(action)).join(`;${NL.lineDelimiter}`)};
+            ${state.Transitions !== null
+                ? state.Transitions.map(transition => this.generateTransition(transition)).join(NL.lineDelimiter)
+                : ''}
+            break;
             `;
     }
 
@@ -53,9 +55,10 @@ void loop() {
     }
 
     generateTransition(transition: Transition): string {
-        return `if (${this.generateConditions(transition.conditions)}) {
-            currentState = ${transition.goto};
-        }`;
+        return `
+            if (${this.generateConditions(transition.conditions)}) {
+                currentState = ${transition.goto};
+            }`;
     }
 
     generateConditions(conditions: Conditions): string {
@@ -66,6 +69,20 @@ void loop() {
     }
 
     generateCondition(condition: Condition): string {
+        if (isAnalogCondition(condition)) {
+            return this.generateAnalogCondition(condition);
+        } else if (isDigitalCondition(condition)) {
+            return this.generateDigitalCondition(condition);
+        } else {
+            return '';
+        }
+    }
+
+    generateAnalogCondition(condition: AnalogCondition): string {
+        return `analogRead(${condition.sensor}) ${condition.analogOp} ${condition.value}`;
+    }
+
+    generateDigitalCondition(condition: DigitalCondition): string {
         return `digitalRead(${condition.sensor}) == ${this.generateValue(condition.value)}`;
     }
 
